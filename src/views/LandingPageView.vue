@@ -5,7 +5,7 @@
         <NavbarComponent/>
         <div class="landing">
             <div class="container-land">
-              <img src="https://i.postimg.cc/YCL1y5mx/design2.jpg" alt="LandingPage" style="width:100%;height:88vh;margin:0;">
+              <img class="home-img" src="https://i.postimg.cc/YCL1y5mx/design2.jpg" alt="LandingPage">
               <div class="content">
                 <img src="https://i.postimg.cc/25NW2htS/transparent.png" style="height:20vh" alt="">
                 <p class="home-text">Active 8 supports our local fitness enthusiasts by outfitting them in creatively designed fitness apparel.</p>
@@ -85,32 +85,32 @@
       <!-- Products Start -->
       <section id="dproducts">
         <h2 class="shop">Shop now with our latest releases</h2>
-        <h4 class="some-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Commodi quod corrupti amet deserunt voluptates praesentium possimus. Incidunt cupiditate excepturi, quo deserunt eius totam mollitia odit reiciendis maiores vel alias velit.</h4>
+        <h4 class="some-text">These are some of our latest products on issue</h4>
         <div class="row align-items-end g-4 p-5">
             <div class="col-sm-4">
               <div class="card-product">
-                <img src="https://i.postimg.cc/qqFWhKs8/men.jpg" class="img-fluid" style="height: 50vh; width:100%;" alt="...">
+                <img src="https://i.postimg.cc/76FX18DV/men-sweater.png" class="img-fluid" alt="...">
                 <div class="card-body">
                   <h6 class="latest">Latest Men Clothing</h6>
-                  <center><button class="shop-now"><a href="/shop">Shop Now</a></button></center>
+                  <center><button class="shop-now"><a href="/shop">Shop Now <i class="fa-solid fa-bag-shopping"></i></a></button></center>
                 </div>
               </div>
             </div>
             <div class="col-sm-4">
               <div class="card-product">
-                <img src="https://i.postimg.cc/y6RGvDyr/women.jpg" class="img-fluid" style="height: 50vh; width:100%;" alt="...">
+                <img src="https://i.postimg.cc/KvzCDT6p/women-sweater.png" class="img-fluid" alt="...">
                 <div class="card-body">
                   <h6 class="latest">Latest Women Clothing</h6>
-                  <center><button class="shop-now"><a href="/shop">Shop Now</a></button></center>
+                  <center><button class="shop-now"><a href="/shop">Shop Now <i class="fa-solid fa-bag-shopping"></i></a></button></center>
                 </div>
               </div>
             </div>
             <div class="col-sm-4">
               <div class="card-product">
-                <img src="https://i.postimg.cc/50s2rPJb/bag.jpg" class="img-fluid" style="height: 50vh; width:100%;" alt="...">
+                <img src="https://i.postimg.cc/fbwF2gks/gymbag.png" class="img-fluid" alt="...">
                 <div class="card-body">
                   <h6 class="latest">Latest Accessories</h6>
-                  <center><button class="shop-now"><a href="/shop">Shop Now</a></button></center>
+                  <center><button class="shop-now"><a href="/shop">Shop Now <i class="fa-solid fa-bag-shopping"></i></a></button></center>
                 </div>
               </div>
             </div>
@@ -162,7 +162,13 @@
   </script>
   
   <style scoped>
-  
+
+  .home-img {
+    width:100%;
+    height:88vh;
+    margin:0;
+  }
+ 
   .landing {
     padding: 0;
     width: 100%;
@@ -192,6 +198,7 @@
   }
   .home-text {
     font-size: 30px;
+    font-family: 'Tilt Neon', cursive;
   }
   .learn {
     border: none;
@@ -333,7 +340,7 @@
   
   .latest {
     text-align: center;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Tilt Neon', cursive;
     color: rgb(224, 215, 161);
     font-size: 30px;
   }

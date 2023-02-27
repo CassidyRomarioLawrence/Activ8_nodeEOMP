@@ -39,6 +39,16 @@
               </div>
               <div class="form-row">
                 <div class="col-sm-6">
+                  <input type="text" placeholder="Gender" class="form-control my-3" required>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="col-sm-6">
+                  <input type="text" placeholder="" class="form-control my-3" value="https://i.postimg.cc/Gt87rd3h/team.jpg" required>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="col-sm-6">
                   <button type="button" class="btn1 mt-3 mb-5">Login</button>
                 </div>
               </div>

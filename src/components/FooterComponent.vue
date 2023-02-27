@@ -16,8 +16,8 @@
                   <div class="col-sm-3">
                       <h3>More</h3>
                       <ul>
-                        <li><i class="fa-solid fa-location-dot text-light"></i> : Lorem ipsum dolor sit amet, consectetur adipisicing elit.</li>
-                        <li><i class="fa-solid fa-phone text-light"></i> : 000-000-0000</li>
+                        <li><i class="fa-solid fa-location-dot text-light"></i> : 314 Imam Haroun Rd, Landsdowne</li>
+                        <li><i class="fa-solid fa-phone text-light"></i> : 021-345-6789</li>
                         <li><a href=""><i class="fa-brands fa-instagram text-light"></i> : Activ8</a></li>
                       </ul>
                   </div>
