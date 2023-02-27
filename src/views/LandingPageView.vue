@@ -195,6 +195,7 @@
     width: 100%; 
     padding: 20px;
     margin: 0;
+    height: auto;
   }
   .home-text {
     font-size: 30px;

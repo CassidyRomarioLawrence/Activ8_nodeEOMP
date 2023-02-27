@@ -48,9 +48,8 @@ export default {
     margin: auto;
   }
   .nav-link:hover {
-    background: rgb(224, 215, 161);
+    background-color: white;
     color: black;
-    text-decoration: underline 3px;
   }
   .user {
     display: flex;
@@ -72,7 +71,7 @@ export default {
     font-size: medium;
   }
   span {
-    text-decoration: underline;
     color: rgb(255, 200, 99);
   }
+  
 </style>
