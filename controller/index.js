@@ -23,11 +23,16 @@ router.post('/login', bodyParser.json(), (req, res)=>{
 // View all users
 router.get('/users', (req, res)=>{
     user.fetchUsers(req, res);
-});
+})
+// View single user
+router.get('/user/:id', 
+(req, res)=> {
+    user.fetchUser(req, res);
+})
 // Update users
 router.put('/user/:id',bodyParser.json(), (req, res)=>{
     user.updateUser(req, res);
-});
+})
 // Register user
 router.post('/register', bodyParser.json(), (req, res)=> {
     user.createUser(req, res);
