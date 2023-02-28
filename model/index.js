@@ -9,7 +9,7 @@ class User {
         const {email, userPass} = req.body;
         const strQry = 
         `
-        SELECT firstName, lastName, gender, email, userPass, userRole, userImage
+        SELECT firstName, lastName, gender, email, userPass, userRole, userImage, joinDate
         FROM users
         WHERE email = '${email}';
         `;
@@ -52,7 +52,7 @@ class User {
     fetchUsers(req, res) {
         const strQry = 
         `
-        SELECT userId, firstName, lastName, gender, phoneNumber, email, userRole, userImage
+        SELECT userId, firstName, lastName, gender, phoneNumber, email, userRole, userImage, joinDate
         FROM users;
         `;
         
@@ -65,7 +65,7 @@ class User {
     fetchUser(req, res) {
         const strQry = 
         `
-        SELECT userId, firstName, lastName, gender, phoneNumber, email, userRole, userImage
+        SELECT userId, firstName, lastName, gender, phoneNumber, email, userRole, userImage, joinDate
         FROM users
         WHERE userId = ?;
         `;
