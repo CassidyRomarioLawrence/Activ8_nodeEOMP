@@ -1,200 +1,213 @@
-const dB = require('../config/index');
-const { hash, compare, hashSync } = require('bcrypt');
+const dB = require('../config');
+
+const {hash, compare, hashSync } = require('bcrypt');
 
 const { createToken } = require('../middleware/AuthenticateUser');
 
-class User{
+class User {
     login(req, res) {
-        const { email, userPass } = req.body;
-        const querySt =
-            `
-            SELECT firstName,lastName,phoneNumber,email,gender,userRole,userImage
-            FROM users
-            WHERE email = '${email}';
-            `;
-        dB.query(querySt, async (err, data) => {
-            if (err) throw err;
-            if ((!data.length) || (data == null)) {
-                res.status(401).json({ message: "Incorrect email address" });
-            } else {
-                await compare(userPass, data[0].userPass, (eErr, eResult) => {
-                    if (eErr) throw eErr;
-                    const jToken = createToken({
-                        email, userPass
-                    }
-                    );
-                    res.cookie('LegitUser',jToken,{
-
-                        maxAge: 3600000,
-                        httpOnly:true
-                    })
-                    if (eResult) {
-                        res.status(200).json({
-                            message: 'Logged In',
-                            jToken,
-                            result:data[0]
-                        })
-                    } else {
-                        res.status(401).json({
-                            errMsg: 'Invalid password.'
-                        })
-                    }
-                })
-            }
-        })
-    }
-    fetchUsers(req, res){
-    const querySt =
+        const {email, userPass} = req.body;
+        const strQry = 
         `
-        SELECT userId, firstName, lastName, gender, phoneNumber, email, userRole,userImage
+        SELECT firstName, lastName, gender, email, userPass, userRole, userImage
+        FROM users
+        WHERE email = '${email}';
+        `;
+        dB.query(strQry, async (err, data)=>{
+            if(err) throw err;
+            if((!data.length) || (data == null)) {
+                res.status(401).json({err: 
+                    "Incorrect email address"});
+            }else {
+                await compare(userPass, 
+                    data[0].userPass, 
+                    (uErr, uResult)=> {
+                        if(uErr) throw cErr;
+                        const jwToken = 
+                        createToken(
+                            {
+                                email, userPass  
+                            }
+                        );
+                        res.cookie('LegitUser',
+                        jwToken, {
+                            maxAge: 3600000,
+                            httpOnly: true
+                        })
+                        if(uResult) {
+                            res.status(200).json({
+                                msg: 'Logged In',
+                                jwToken,
+                                result: data[0]
+                            })
+                        }else {
+                            res.status(401).json({
+                                err: 'Incorrect password'
+                            })
+                        }
+                    })
+            }
+        })     
+    }
+    fetchUsers(req, res) {
+        const strQry = 
+        `
+        SELECT userId, firstName, lastName, gender, phoneNumber, email, userRole, userImage
         FROM users;
         `;
-    
-    dB.query(querySt, (err, data) => {
-        if (err) throw err;
-        else res.status(200).json({
-            results: data
-        });
-    })
-    }
-    fetchUser(req,res){
-        const querySt =
-            `
-            SELECT userId, firstName, lastName, gender, phoneNumber, email, userRole,userImage
-            FROM users
-            WHERE userId = ?;
-            `;
-        dB.query(querySt, [req.params.userId],
-            (err, data) => {
-                if (err) throw err;
-                else res.status(200).json({
-                    results: data
-                }
-                );
+        
+        dB.query(strQry, (err, data)=>{
+            if(err) throw err;
+            else res.status(200).json( 
+                {results: data} );
         })
+    }
+    fetchUser(req, res) {
+        const strQry = 
+        `
+        SELECT userId, firstName, lastName, gender, phoneNumber, email, userRole, userImage
+        FROM users
+        WHERE userId = ?;
+        `;
+        
+        dB.query(strQry,[req.params.id], 
+            (err, data)=>{
+            if(err) throw err;
+            else res.status(200).json( 
+                {results: data} );
+        })
+
     }
     async createUser(req, res) {
         let info = req.body;
-        info.userPass = await
-            hash(info.userPass, 20);
-        
+        info.userPass = await 
+        hash(info.userPass, 15);
         let user = {
             email: info.email,
             userPass: info.userPass
         }
-
-        const querySt =
-            `
-            INSERT INTO users SET?;
-            `;
-        dB.query(querySt, [info], (err) => {
-            if (err) {
-                res.status(401).json({ err });
-            } else {
-                const jToken = createToken(user);
-                res.cookie('LegitUser', jToken, {
+        
+        const strQry =
+        `INSERT INTO users
+        SET ?;`;
+        dB.query(strQry, [info], (err)=> {
+            if(err) {
+                res.status(401).json({err});
+            }else {
+                
+                const jwToken = createToken(user);
+                res.cookie("LegitUser", jwToken, {
                     maxAge: 3600000,
                     httpOnly: true
                 });
-                res.status(200).json({message: "User record saved"})
+                res.status(200).json({msg: "Successfully added new user."})
             }
-        })
+        })    
     }
     updateUser(req, res) {
         let data = req.body;
-        if (data.userPass !== null ||
+        if(data.userPass !== null || 
             data.userPass !== undefined)
             data.userPass = hashSync(data.userPass, 15);
-        const querySt =
-            `
-            UPDATE users SET ?
-            WHERE userId = ?;
-            `;
-        dB.query(querySt, [data, req.params.userId],
-            (err) => {
-                if (err) throw err;
-                res.status(200).json({ message: "Row has been updated" });
-        })
+        const strQry = 
+        `
+        UPDATE users
+        SET ?
+        WHERE userId = ?;
+        `;
+        
+        dB.query(strQry,[data, req.params.id], 
+            (err)=>{
+            if(err) throw err;
+            res.status(200).json( {msg: 
+                "Successfully updated user."} );
+        })    
     }
     deleteUser(req, res) {
-        const querySt =
-            `
-            DELETE FROM users
-            WHERE userId = ?;
-            `;
-        dB.query(querySt, [req.params.userId],
-            (err) => {
-                if (err) throw err;
-                res.status(200).json({ message: "Users been deleted from database" });
-        })
+        const strQry = 
+        `
+        DELETE FROM users
+        WHERE userId = ?;
+        `;
+        
+        dB.query(strQry,[req.params.id], 
+            (err)=>{
+            if(err) throw err;
+            res.status(200).json( {msg: 
+                "Successfully deleted user."} );
+        })    
     }
 }
 
-class Product{
+class Product {
     fetchProducts(req, res) {
-        const querySt =
-            `
-            SELECT id,category,prodName,prodInfo,prodPrice,prodImage
-            FROM products;
-            `;
-        dB.query(querySt, (err, results) => {
-            if (err) throw err;
-            res.status(200).json({ results: results })
+        const strQry = `SELECT id, category, prodName, prodInfo, prodPrice, prodImage
+        FROM products;`;
+        dB.query(strQry, (err, results)=> {
+            if(err) throw err;
+            res.status(200).json({results: results})
         });
     }
     fetchProduct(req, res) {
-        const querySt =
-            `
-            SELECT id,category,prodName,prodInfo,prodPrice,prodImage
-            FROM products
-            WHERE id = ?;
-            `;
-        dB.query(querySt, [req.params.id], (err, results) => {
-            if (err) throw err;
-            res.status(200).json({ results: results })
+        const strQry = `SELECT id,category, prodName, prodInfo, prodPrice, prodImage
+        FROM products
+        WHERE id = ?;`;
+        dB.query(strQry, [req.params.id], (err, results)=> {
+            if(err) throw err;
+            res.status(200).json({results: results})
         });
+
     }
     addProduct(req, res) {
-        const querySt =
-            `
-            INSERT INTO products
-            SET ?;
-            `;
-        dB.query(querySt, [req.body], (err) => {
-            if (err) {
-                res.status(400).json({ error: "Unable to add new product." });
-            } else {
-                res.status(200).json({ message: "Successfully added product." });
+        const strQry = 
+        `
+        INSERT INTO products
+        SET ?;
+        `;
+        dB.query(strQry,[req.body],
+            (err)=> {
+                if(err){
+                    res.status(400).json({err: "Unable to create new product."});
+                }else {
+                    res.status(200).json({msg: "Product successfully added."});
+                }
             }
-        });
+        );    
+
     }
     updateProduct(req, res) {
-        const querySt =
-            `
-            UPDATE products
-            SET ?
-            WHERE id = ?;
-            `;
-        dB.query(querySt, [req.body, req.params.id], (err) => {
-            if (err) {
-                res.status(400).json({ error: "Unable to update product details." });
-            } else {
-                res.status(200).json({ message: "Successfully updated" });
+        const strQry = 
+        `
+        UPDATE products
+        SET ?
+        WHERE id = ?
+        `;
+        dB.query(strQry,[req.body, req.params.id],
+            (err)=> {
+                if(err){
+                    res.status(400).json({err: "Could not update product."});
+                }else {
+                    res.status(200).json({msg: "Product successfully updated"});
+                }
             }
-        })
+        );    
+
     }
     deleteProduct(req, res) {
-        const querySt =
-            `
-            DELETE FROM products
-            WHERE id = ?;
-            `;
-        dB.query(querySt, [req.params.id], (err) => {
-            if (err)
-                res.status(400).json({ error: "Record not found." });
-            res.status(200).json({message:"Successfully deleted product."})
+        const strQry = 
+        `
+        DELETE FROM products
+        WHERE id = ?;
+        `;
+        dB.query(strQry,[req.params.id], (err)=> {
+            if(err) res.status(400).json({err: "Product not found."});
+            res.status(200).json({msg: "Successfully deleted product."});
         })
     }
+
 }
 
-module.exports = {User,Product}
+module.exports = {
+    User, 
+    Product
+}

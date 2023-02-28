@@ -1,20 +1,21 @@
+
 require('dotenv').config();
-const {sign, verify} = require('jsonwebtoken');
-// Creating a token
+const { sign, verify } = require('jsonwebtoken');
+
 function createToken(user) {
     return sign({
-        email: user.email,
+        emailAdd: user.emailAdd,
         userPass: user.userPass
     },
     process.env.SECRET_KEY,
     {
-        expiresIn: '1h'
+        expiresIn: '1h'  
     });
 }
-//
+
 function verifyAToken(req, res, next) {
     try{
-        const token = req.cookies["LegitUser"] !== null ? req.cookies["LegitUser"] : 
+        const token = req.cookies["LegitUser"] !== null ? req.cookies["LegitUser"] :
         "Please register" ;
         const isValid = null;
         if(token !== "Please register") {
