@@ -22,16 +22,17 @@
                       </tr>
                   </thead>
                   <tbody>
+                    <!-- Admin Start -->
                         <tr>
                               <td data-label="FirstName">Meezaan</td>
                               <td data-label="LastName">Davids</td>
                               <td data-label="Phone">0658707217</td>
                               <td data-label="Email">meezaan@gmail.com</td>
-                              <td data-label="Image"><img src="https://i.postimg.cc/Gt87rd3h/team.jpg" class="img-fluid" style="height:15vh" alt=""></td>
+                              <td data-label="Image"><img src="https://i.postimg.cc/Gt87rd3h/team.jpg" class="img-fluid" style="height:12vh" alt=""></td>
                               <td data-label="Gender">Male</td>
                               <td data-label="Role">Admin</td>
                               <td data-label="joinDate">28 Feb 2023</td>
-                              <td data-label="edit"><i class="fa-solid fa-pen-to-square"></i></td>
+                              <td data-label="edit"><UpdateUser/></td>
                               <td data-label="delete"><i class="fa-solid fa-trash"></i></td>
                         </tr>
                         <tr>
@@ -39,27 +40,77 @@
                               <td data-label="LastName">Lawrence</td>
                               <td data-label="Phone">0000000000</td>
                               <td data-label="Email">cassidy@gmail.com</td>
-                              <td data-label="Image"><img src="https://i.postimg.cc/Gt87rd3h/team.jpg" class="img-fluid" style="height:15vh" alt=""></td>
+                              <td data-label="Image"><img src="https://i.postimg.cc/Gt87rd3h/team.jpg" class="img-fluid" style="height:12vh" alt=""></td>
                               <td data-label="Gender">Male</td>
                               <td data-label="Role">Admin</td>
                               <td data-label="joinDate">1 March 2023</td>
-                              <td data-label="edit"><i class="fa-solid fa-pen-to-square"></i></td>
+                              <td data-label="edit"><UpdateUser/></td>
                               <td data-label="delete"><i class="fa-solid fa-trash"></i></td>
                         </tr>
+                        <tr>
+                              <td data-label="FirstName">Cassidy</td>
+                              <td data-label="LastName">Lawrence</td>
+                              <td data-label="Phone">0000000000</td>
+                              <td data-label="Email">cassidy@gmail.com</td>
+                              <td data-label="Image"><img src="https://i.postimg.cc/Gt87rd3h/team.jpg" class="img-fluid" style="height:12vh" alt=""></td>
+                              <td data-label="Gender">Male</td>
+                              <td data-label="Role">Admin</td>
+                              <td data-label="joinDate">1 March 2023</td>
+                              <td data-label="edit"><UpdateUser/></td>
+                              <td data-label="delete"><i class="fa-solid fa-trash"></i></td>
+                        </tr>
+                        <!-- Admin End -->
+
+                        <!-- User Start -->
+                        <tr>
+                              <td data-label="FirstName">Cassidy</td>
+                              <td data-label="LastName">Lawrence</td>
+                              <td data-label="Phone">0000000000</td>
+                              <td data-label="Email">cassidy@gmail.com</td>
+                              <td data-label="Image"><img src="https://i.postimg.cc/Gt87rd3h/team.jpg" class="img-fluid" style="height:12vh" alt=""></td>
+                              <td data-label="Gender">Male</td>
+                              <td data-label="Role">Admin</td>
+                              <td data-label="joinDate">1 March 2023</td>
+                              <td data-label="edit"><UpdateUser/></td>
+                              <td data-label="delete"><i class="fa-solid fa-trash"></i></td>
+                        </tr>
+                        <tr>
+                              <td data-label="FirstName">Cassidy</td>
+                              <td data-label="LastName">Lawrence</td>
+                              <td data-label="Phone">0000000000</td>
+                              <td data-label="Email">cassidy@gmail.com</td>
+                              <td data-label="Image"><img src="https://i.postimg.cc/Gt87rd3h/team.jpg" class="img-fluid" style="height:12vh" alt=""></td>
+                              <td data-label="Gender">Male</td>
+                              <td data-label="Role">Admin</td>
+                              <td data-label="joinDate">1 March 2023</td>
+                              <td data-label="edit"><UpdateUser/></td>
+                              <td data-label="delete"><i class="fa-solid fa-trash"></i></td>
+                        </tr>
+                        <tr>
+                              <td data-label="FirstName">Cassidy</td>
+                              <td data-label="LastName">Lawrence</td>
+                              <td data-label="Phone">0000000000</td>
+                              <td data-label="Email">cassidy@gmail.com</td>
+                              <td data-label="Image"><img src="https://i.postimg.cc/Gt87rd3h/team.jpg" class="img-fluid" style="height:12vh" alt=""></td>
+                              <td data-label="Gender">Male</td>
+                              <td data-label="Role">Admin</td>
+                              <td data-label="joinDate">1 March 2023</td>
+                              <td data-label="edit"><UpdateUser/></td>
+                              <td data-label="delete"><i class="fa-solid fa-trash"></i></td>
+                        </tr>
+                        <!-- User -->
                   </tbody>
                 </table>
                 <h2 class="product-crud">PRODUCT CRUD</h2>
                 <table class="table">
                   <thead>
                       <tr>
-                       <th>FirstName</th>
-                       <th>LastName</th>
-                       <th>Phone</th>
-                       <th>Email</th>
+                       <th>Category</th>
+                       <th>Name</th>
+                       <th>Information</th>
+                       <th>Price</th>
+                       <th>Quantity</th>
                        <th>Image</th>
-                       <th>Gender</th>
-                       <th>Role</th>
-                       <th>Join Date</th>
                        <th>Edit</th>
                        <th>Delete</th>
                       </tr>
@@ -70,10 +121,8 @@
                               <td data-label="LastName">Davids</td>
                               <td data-label="Phone">0658707217</td>
                               <td data-label="Email">meezaan@gmail.com</td>
-                              <td data-label="Image"><img src="https://i.postimg.cc/Gt87rd3h/team.jpg" class="img-fluid" style="height:15vh" alt=""></td>
+                              <td data-label="Image"><img src="https://i.postimg.cc/Gt87rd3h/team.jpg" class="img-fluid" style="height:12vh" alt=""></td>
                               <td data-label="Gender">Male</td>
-                              <td data-label="Role">Admin</td>
-                              <td data-label="joinDate">28 Feb 2023</td>
                               <td data-label="edit"><i class="fa-solid fa-pen-to-square"></i></td>
                               <td data-label="delete"><i class="fa-solid fa-trash"></i></td>
                         </tr>
@@ -82,10 +131,8 @@
                               <td data-label="LastName">Lawrence</td>
                               <td data-label="Phone">0000000000</td>
                               <td data-label="Email">cassidy@gmail.com</td>
-                              <td data-label="Image"><img src="https://i.postimg.cc/Gt87rd3h/team.jpg" class="img-fluid" style="height:15vh" alt=""></td>
+                              <td data-label="Image"><img src="https://i.postimg.cc/Gt87rd3h/team.jpg" class="img-fluid" style="height:12vh" alt=""></td>
                               <td data-label="Gender">Male</td>
-                              <td data-label="Role">Admin</td>
-                              <td data-label="joinDate">1 March 2023</td>
                               <td data-label="edit"><i class="fa-solid fa-pen-to-square"></i></td>
                               <td data-label="delete"><i class="fa-solid fa-trash"></i></td>
                         </tr>
@@ -99,26 +146,22 @@
 </template>
 
 <script>
+import UpdateUser from '@/components/UpdateUser.vue';
 import AddUser from '@/components/AddUser.vue';
 import FooterComponent from '@/components/FooterComponent.vue';
 import NavbarComponent from '@/components/NavbarComponent.vue';
 
 export default {
-    components: { NavbarComponent, FooterComponent, AddUser }
+    components: { NavbarComponent, FooterComponent, AddUser, UpdateUser }
 }
 </script>
 <style scoped>
  body {
-  background-image: url("https://i.postimg.cc/FFg04jbP/admin-img.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-  position: relative;
+  background-color:  rgb(32, 32, 32);
  }
 
- .container-shopping {
-  padding: 10px;
-  backdrop-filter: blur(5px);
-  
+ .shopping {
+  padding: 30px;
  }
   .user-crud, .product-crud {
     font-family: 'Tilt Neon', cursive;

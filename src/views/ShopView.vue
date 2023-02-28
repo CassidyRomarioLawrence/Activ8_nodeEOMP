@@ -24,6 +24,7 @@
         </section>
         <section id="men">
             <h2>Men</h2>
+            <ProductCard/>
         </section>
         <section id="women">
             <h2>Women</h2>
@@ -38,9 +39,10 @@
 <script>
 import FooterComponent from '@/components/FooterComponent.vue';
 import NavbarComponent from '@/components/NavbarComponent.vue';
+import ProductCard from '@/components/ProductCard.vue';
 
 export default {
-    components: { NavbarComponent, FooterComponent }
+    components: { NavbarComponent, FooterComponent, ProductCard }
 }
 </script>
 <style scoped>

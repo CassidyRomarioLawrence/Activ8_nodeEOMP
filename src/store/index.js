@@ -1,12 +1,14 @@
 import { createStore } from 'vuex'
 
+// import axios from 'axios'
 
 export default createStore({
   state: {
     users: null,
     user: null,
     products: null,
-    product: null
+    product: null,
+    Spinner: true
   },
 
   mutations: {
@@ -21,12 +23,15 @@ export default createStore({
     },
     setProduct(state, value) {
       state.product = value
+    },
+    setSpinner(state, value) {
+      state.product = value
     }
   },
   actions: {
     register: async (context, payload) => {
       const { firstName, lastName, phoneNumber, email, userPass, gender, userRole, userImage, joinDate} = payload;
-      fetch("", {
+      fetch("https://activ8-nodeeomp.onrender.com/register", {
         method: "POST",
         body: JSON.stringify({
           firstName: firstName,
@@ -51,10 +56,52 @@ export default createStore({
       const { email, userPass} =payload;
 
       const res = await fetch(
-        `email=${email}&password=${userPass}`)
+        `https://activ8-nodeeomp.onrender.com/login?email=${email}&password=${userPass}`)
         const userData = await res.json();
         context.commit("setUser", userData[0])   
-    }
+    },
+
+    getProducts: async (context) => {
+      fetch("https://activ8-nodeeomp.onrender.com/products")
+      .then((res) => res.json())
+      .then((products) => context.commit("setProducts", products))
+    },
+
+    getProduct: async (context, id) => {
+      fetch("https://activ8-nodeeomp.onrender.com/product/" + id)
+      .then((res) => res.json())
+      .then((product) => context.commit("setProduct", product))
+    },
+
+    deleteProduct: async (context, id) => {
+      fetch("https://activ8-nodeeomp.onrender.com/product/" + id, {
+        method: "DELETE",
+      }).then(() => context.dispatch("getProducts"))
+    },
+
+    createProduct: async (context, product) => {
+      fetch("https://activ8-nodeeomp.onrender.com/product/", {
+        method: "POST",
+        body: JSON.stringify(product),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      })
+        .then((response) => response.json())
+        .then(() => context.dispatch("getProducts"));
+    },
+
+    updateProduct: async (context, product) => {
+      fetch("https://activ8-nodeeomp.onrender.com/product/" + product.id, {
+        method: "PUT",
+        body: JSON.stringify(product),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      })
+        .then((response) => response.json())
+        .then(() => context.dispatch("getProducts"));
+    },
   },
   modules: {
   }
