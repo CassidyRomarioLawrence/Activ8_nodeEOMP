@@ -13,6 +13,28 @@
         <h1 class="display-1 text-center mb-2 text-light" style="font-weight: bold; text-shadow: 3px 3px 3px grey;">Activ8 Routes</h1>
     </header>
     <main>
+        <section class="home container-fluid">
+            <h6 class="text-center mb-2">HOME :</h6>
+            <table class="table table-bordered table-light table-hover" style="box-shadow: 4px -4px 4px grey;">
+                <thead>
+                    <tr>
+                        <th scope="col">Method</th>
+                        <th scope="col">Route</th>
+                        <th scope="col">Definition</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>GET</td>
+                        <td>
+                            /
+                        </td>
+                        <td>
+                            View home.
+                        </td>
+                    </tr>
+            </table>
+        </section>
         <section class="user container-fluid">
             <h6 class="display-6 text-center mb-2">USER :</h6>
             <table class="table user-table table-bordered table-light table-hover" style="box-shadow: 4px -4px 4px grey;">
@@ -27,12 +49,10 @@
                     <tr>
                         <td>GET</td>
                         <td>
-                            / <br><br>
                             /users <br><br>
                             /user/:id
                         </td>
                         <td>
-                            View home. <br><br>
                             View all users. <br><br>
                             View single user by ID.
                         </td>
