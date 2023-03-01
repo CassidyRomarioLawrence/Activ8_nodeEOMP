@@ -65,7 +65,7 @@ class User {
     fetchUser(req, res) {
         const strQry = 
         `
-        SELECT userId, firstName, lastName, gender, phoneNumber, email, userRole, userImage, joinDate
+        SELECT userId, firstName, lastName, gender, phoneNumber, email, userRole, userImage, DATE_FORMAT(joinDate, '%Y-%m-%d') AS user_joined
         FROM users
         WHERE userId = ?;
         `;
