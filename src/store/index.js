@@ -1,6 +1,5 @@
 import { createStore } from 'vuex'
-
-// import axios from 'axios'
+import axios from 'axios'
 
 export default createStore({
   state: {
@@ -61,11 +60,11 @@ export default createStore({
         context.commit("setUser", userData[0])   
     },
 
-    getProducts: async (context) => {
-      fetch("https://activ8-nodeeomp.onrender.com/products")
-      .then((res) => res.json())
-      .then((products) => context.commit("setProducts", products))
-    },
+    async getPosts() {
+      let res = await axios.get('https://activ8-nodeeomp.onrender.com/products');
+      let {results} = await res.data;
+      this.products = results;
+  },
 
     getProduct: async (context, id) => {
       fetch("https://activ8-nodeeomp.onrender.com/product/" + id)

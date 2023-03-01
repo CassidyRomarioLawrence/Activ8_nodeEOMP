@@ -15,6 +15,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
+                        <input type="text" placeholder="ID" v-model="userId" class="form-control my-3" required>
                         <input type="text" placeholder="Firstname" v-model="firstName" class="form-control my-3" required>
                         <input type="text" placeholder="Lastname" v-model="lastName" class="form-control my-3" required>
                         <input type="number" placeholder="Phone number" v-model="phoneNumber" class="form-control my-3"
@@ -39,6 +40,7 @@
 export default {
     data() {
         return {
+            userId: '',
             firstName: '',
             lastName: '',
             phoneNumber: '',
@@ -53,6 +55,7 @@ export default {
     computed: {
         user() {
             return this.$store.dispatch("register", {
+                userId:this.userId,
                 firstName: this.firstName,
                 lastName: this.lastName,
                 phoneNumber: this.phoneNumber,
