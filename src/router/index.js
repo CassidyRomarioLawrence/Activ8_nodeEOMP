@@ -23,6 +23,11 @@ const routes = [
     component: () => import('../views/ShopView.vue')
   },
   {
+    path: '/single',
+    name: 'single',
+    component: () => import('../views/SingleView.vue')
+  },
+  {
     path: '/admin',
     name: 'admin',
     component: () => import('../views/AdminView.vue')

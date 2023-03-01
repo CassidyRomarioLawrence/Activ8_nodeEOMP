@@ -23,44 +23,27 @@
               </tr>
             </thead>
             <tbody>
-              <!-- Admin Start -->
-              <tr>
-                <td data-label="ID">1</td>
-                <td data-label="FirstName">Meezaan</td>
-                <td data-label="LastName">Davids</td>
-                <td data-label="Phone">0658707217</td>
-                <td data-label="Email">meezaan@gmail.com</td>
-                <td data-label="Image"><img src="https://i.postimg.cc/Gt87rd3h/team.jpg" class="img-fluid"
-                    style="height:12vh" alt=""></td>
-                <td data-label="Gender">Male</td>
-                <td data-label="Role">Admin</td>
-                <td data-label="joinDate">28 Feb 2023</td>
+
+              <tr v-for="user in users" :key="user.id">
+                <td data-label="ID">{{ user.userId }}</td>
+                <td data-label="FirstName">{{ user.firstName }}</td>
+                <td data-label="LastName">{{ user.lastName }}</td>
+                <td data-label="Phone">{{ user.phoneNumber }}</td>
+                <td data-label="Email">{{ user.email }}</td>
+                <td data-label="Image"><img :src="user.userImage" class="img-fluid" style="height:12vh" alt=""></td>
+                <td data-label="Gender">{{ user.gender }}</td>
+                <td data-label="Role">{{ user.userRole }}</td>
+                <td data-label="joinDate">{{ user.user_joined }}</td>
                 <td data-label="edit">
                   <UpdateUser />
                 </td>
                 <td data-label="delete"><i class="fa-solid fa-trash"></i></td>
               </tr>
-              <!-- <tr>
-                <td data-label="ID">2</td>
-                <td data-label="FirstName">Cassidy</td>
-                <td data-label="LastName">Lawrence</td>
-                <td data-label="Phone">0000000000</td>
-                <td data-label="Email">cassidy@gmail.com</td>
-                <td data-label="Image"><img src="https://i.postimg.cc/Gt87rd3h/team.jpg" class="img-fluid"
-                    style="height:12vh" alt=""></td>
-                <td data-label="Gender">Male</td>
-                <td data-label="Role">Admin</td>
-                <td data-label="joinDate">1 March 2023</td>
-                <td data-label="edit">
-                  <UpdateUser />
-                </td>
-                <td data-label="delete"><i class="fa-solid fa-trash"></i></td>
-              </tr> -->
-              <!-- Admin End -->
 
             </tbody>
           </table>
           <h2 class="product-crud">PRODUCT CRUD</h2>
+          <AddProduct />
           <table class="table">
             <thead>
               <tr>
@@ -76,14 +59,14 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td data-label="productID">1</td>
-                <td data-label="category">Men</td>
-                <td data-label="name">men sweater</td>
-                <td data-label="information">black men sweater</td>
-                <td data-label="price">R50</td>
-                <td data-label="Quantity">1</td>
-                <td data-label="Image"><img src="https://i.postimg.cc/Gt87rd3h/team.jpg" class="img-fluid"
+              <tr v-for="product in products" :key="product.id">
+                <td data-label="productID">{{product.id}}</td>
+                <td data-label="category">{{product.category}}</td>
+                <td data-label="name">{{product.prodName}}</td>
+                <td data-label="information">{{product.prodInfo}}</td>
+                <td data-label="price">R{{product.prodPrice}}</td>
+                <td data-label="Quantity">{{ product.prodQuantity }}</td>
+                <td data-label="Image"><img :src="product.prodImage" class="img-fluid"
                     style="height:12vh" alt=""></td>
                 <td data-label="edit"><i class="fa-solid fa-pen-to-square"></i></td>
                 <td data-label="delete"><i class="fa-solid fa-trash"></i></td>
@@ -98,13 +81,47 @@
 </template>
 
 <script>
+import AddProduct from '@/components/AddProduct.vue';
 import UpdateUser from '@/components/UpdateUser.vue';
 import AddUser from '@/components/AddUser.vue';
 import FooterComponent from '@/components/FooterComponent.vue';
 import NavbarComponent from '@/components/NavbarComponent.vue';
+import axios from 'axios'
 
 export default {
-  components: { NavbarComponent, FooterComponent, AddUser, UpdateUser }
+  components: { NavbarComponent, FooterComponent, AddUser, UpdateUser, AddProduct },
+  data() {
+    return {
+      users: null,
+      products: null
+    }
+  },
+  methods: {
+    async getUsers() {
+      let res = await axios
+        .get('https://active8-eomp.onrender.com/users')
+        .catch(error => {
+          console.log(error);
+        })
+      let { results } = await res.data;
+      this.users = results
+    },
+
+   async getProducts() {
+    let res = await axios
+    .get('https://active8-eomp.onrender.com/products')
+    .catch(error => {
+      console.log(error);
+    })
+    let {results} = await res.data;
+    this.products = results
+   } 
+
+  },
+  mounted() {
+    this.getUsers(),
+    this.getProducts()
+  }
 }
 </script>
 <style scoped>
@@ -189,4 +206,5 @@ body {
     font-weight: bold;
     text-align: left;
   }
-}</style>
+}
+</style>

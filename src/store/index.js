@@ -55,31 +55,31 @@ export default createStore({
       const { email, userPass} =payload;
 
       const res = await fetch(
-        `https://activ8-nodeeomp.onrender.com/login?email=${email}&password=${userPass}`)
+        `https://active8-eomp.onrender.com//login?email=${email}&password=${userPass}`)
         const userData = await res.json();
         context.commit("setUser", userData[0])   
     },
 
     async getPosts() {
-      let res = await axios.get('https://activ8-nodeeomp.onrender.com/products');
+      let res = await axios.get('https://active8-eomp.onrender.com/products');
       let {results} = await res.data;
       this.products = results;
   },
 
     getProduct: async (context, id) => {
-      fetch("https://activ8-nodeeomp.onrender.com/product/" + id)
+      fetch("https://active8-eomp.onrender.com/product/" + id)
       .then((res) => res.json())
       .then((product) => context.commit("setProduct", product))
     },
 
     deleteProduct: async (context, id) => {
-      fetch("https://activ8-nodeeomp.onrender.com/product/" + id, {
+      fetch("https://active8-eomp.onrender.com/product/" + id, {
         method: "DELETE",
       }).then(() => context.dispatch("getProducts"))
     },
 
     createProduct: async (context, product) => {
-      fetch("https://activ8-nodeeomp.onrender.com/product/", {
+      fetch("https://active8-eomp.onrender.com/product/", {
         method: "POST",
         body: JSON.stringify(product),
         headers: {
@@ -91,7 +91,7 @@ export default createStore({
     },
 
     updateProduct: async (context, product) => {
-      fetch("https://activ8-nodeeomp.onrender.com/product/" + product.id, {
+      fetch("https://active8-eomp.onrender.com/product/" + product.id, {
         method: "PUT",
         body: JSON.stringify(product),
         headers: {

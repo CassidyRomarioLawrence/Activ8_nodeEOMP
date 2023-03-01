@@ -76,9 +76,7 @@ import FooterComponent from '@/components/FooterComponent.vue';
 
   export default {
     name: 'LoginView',
-    components: {
-      NavbarComponent, FooterComponent
-    },
+    components: { NavbarComponent, FooterComponent },
 
     data() {
       return {
