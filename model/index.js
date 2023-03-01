@@ -9,7 +9,7 @@ class User {
         const {email, userPass} = req.body;
         const strQry = 
         `
-        SELECT firstName, lastName, gender, email, userPass, userRole, userImage, joinDate
+        SELECT firstName, lastName, gender, email, userPass, userRole, userImage, DATE_FORMAT(joinDate, '%Y-%m-%d') AS user_joined
         FROM users
         WHERE email = '${email}';
         `;
@@ -52,7 +52,7 @@ class User {
     fetchUsers(req, res) {
         const strQry = 
         `
-        SELECT userId, firstName, lastName, gender, phoneNumber, email, userRole, userImage, joinDate
+        SELECT userId, firstName, lastName, gender, phoneNumber, email, userRole, userImage, DATE_FORMAT(joinDate, '%Y-%m-%d') AS user_joined
         FROM users;
         `;
         
@@ -204,7 +204,6 @@ class Product {
             res.status(200).json({msg: "Successfully deleted product."});
         })
     }
-
 }
 
 module.exports = {
