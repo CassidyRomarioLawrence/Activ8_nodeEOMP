@@ -68,7 +68,7 @@
                 <td data-label="Quantity">{{ product.prodQuantity }}</td>
                 <td data-label="Image"><img :src="product.prodImage" class="img-fluid"
                     style="height:12vh" alt=""></td>
-                <td data-label="edit"><i class="fa-solid fa-pen-to-square"></i></td>
+                <td data-label="edit"><UpdateProduct/></td>
                 <td data-label="delete"><i class="fa-solid fa-trash"></i></td>
               </tr>
             </tbody>
@@ -86,42 +86,22 @@ import UpdateUser from '@/components/UpdateUser.vue';
 import AddUser from '@/components/AddUser.vue';
 import FooterComponent from '@/components/FooterComponent.vue';
 import NavbarComponent from '@/components/NavbarComponent.vue';
-import axios from 'axios'
+import UpdateProduct from '@/components/UpdateProduct.vue';
+import {computed} from '@vue/runtime-core'
+import { useStore } from 'vuex';
 
 export default {
-  components: { NavbarComponent, FooterComponent, AddUser, UpdateUser, AddProduct },
-  data() {
-    return {
-      users: null,
-      products: null
+  components: { NavbarComponent, FooterComponent, AddUser, UpdateUser, AddProduct, UpdateProduct },
+  setup() {
+        const store = useStore()
+        store.dispatch("getProducts")
+        store.dispatch("getUsers")
+        const products = computed( () => store.state.products)
+        const users = computed( () => store.state.users )
+        return {
+            products, users
+        }
     }
-  },
-  methods: {
-    async getUsers() {
-      let res = await axios
-        .get('https://active8-eomp.onrender.com/users')
-        .catch(error => {
-          console.log(error);
-        })
-      let { results } = await res.data;
-      this.users = results
-    },
-
-   async getProducts() {
-    let res = await axios
-    .get('https://active8-eomp.onrender.com/products')
-    .catch(error => {
-      console.log(error);
-    })
-    let {results} = await res.data;
-    this.products = results
-   } 
-
-  },
-  mounted() {
-    this.getUsers(),
-    this.getProducts()
-  }
 }
 </script>
 <style scoped>

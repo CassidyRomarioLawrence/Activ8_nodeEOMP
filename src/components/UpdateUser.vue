@@ -1,17 +1,17 @@
 <template>
     <div>
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#updateProductModal">
+        <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#updateUserModal">
             <i class="fa-solid fa-pen-to-square"></i>
         </button>
 
         <!-- Modal -->
-        <div class="modal fade" id="updateProductModal" tabindex="-1" aria-labelledby="updateProductModal"
+        <div class="modal fade" id="updateUserModal" tabindex="-1" aria-labelledby="updateUserModal"
             aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content bg-dark">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="updateProductModal">Modal title</h1>
+                        <h1 class="modal-title fs-5" id="updateUserModal">Modal title</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">

@@ -1,16 +1,17 @@
 <template>
     <div>
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductModal">
-            Add new product
+        <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#updateProductModal">
+            <i class="fa-solid fa-pen-to-square"></i>
         </button>
 
         <!-- Modal -->
-        <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModal" aria-hidden="true">
+        <div class="modal fade" id="updateProductModal" tabindex="-1" aria-labelledby="updateProductModal"
+            aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content bg-dark">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="addProductModal">Modal title</h1>
+                        <h1 class="modal-title fs-5" id="updateProductModal">Modal title</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -37,8 +38,6 @@
 
 <script>
 export default {
-    name: 'AddProduct',
-
     data() {
         return {
             id: '',
@@ -51,8 +50,9 @@ export default {
         }
     },
     computed: {
+        computed: {
         product() {
-            return this.$store.dispatch("register", {
+            return this.$store.dispatch("updateProduct", {
                 idd: this.id,
                 category: this.category,
                 prodName: this.prodName,
@@ -63,7 +63,10 @@ export default {
             })
         }
     }
+    }
+
 }
+
 </script>
 
 <style scoped></style>

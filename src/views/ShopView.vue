@@ -12,7 +12,11 @@
       </div>
     </section>
     <section id="all-products">
+  
+        <SpinnerComponent v-if="isLoading" />
+    <div v-else>
       <ProductCard />
+    </div>
     </section>
     <FooterComponent />
   </body>
@@ -22,13 +26,25 @@
 import FooterComponent from '@/components/FooterComponent.vue';
 import NavbarComponent from '@/components/NavbarComponent.vue';
 import ProductCard from '@/components/ProductCard.vue';
+import SpinnerComponent from '@/components/SpinnerComponent.vue';
 
 
 
 
 
 export default {
-  components: { NavbarComponent, FooterComponent, ProductCard },
+  components: { NavbarComponent, FooterComponent, ProductCard , SpinnerComponent},
+
+  data() {
+    return {
+      isLoading: true
+    }
+  },
+  created() {
+    setTimeout(() => {
+     this.isLoading = false; 
+    }, 5000);
+  }
 
 }
 
@@ -36,7 +52,7 @@ export default {
 <style scoped>
 #all-products {
   height: auto;
-  background-image: linear-gradient(black, rgba(0, 0, 0, 0.7));
+  background-image: linear-gradient(black, rgba(65, 65, 65, 0.7));
 }
 
 .shop-img {

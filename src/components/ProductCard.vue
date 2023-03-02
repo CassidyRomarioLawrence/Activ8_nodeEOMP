@@ -1,7 +1,7 @@
 <template>
     <div class="space">
         <div class="dropdown">
-            <button class="dropbtn">SHOP BY</button>
+            <button class="drop-button">SHOP BY</button>
             <div class="dropdown-content">
                 <button @click.prevent="getProducts">All Products</button>
                 <a href="#">Men</a>
@@ -9,67 +9,80 @@
                 <a href="#">Accessories</a>
             </div>
         </div>
+        <input type="text" v-model="search" placeholder="Search for products" style="height:40px">
     </div>
-    <div v-if="isLoading">
-        <SpinnerComponent />
-    </div>
-    <div v-else>
+
         <div v-if="products" class="row" style="gap: 5rem; padding: 30px;justify-content:center">
-            <div class="card" v-for="product in products" :key="product.id"
-                style="width: 18rem;background-color: transparent">
-                <img :src="product.prodImage" class="card-img-top">
+            <div class="card" v-for="product in products" :key="product">
+                <img :src="product.prodImage" class="img-fluid">
                 <div class="card-body">
                     <h4 class="text-light">{{ product.category }}</h4>
                     <h5 class="text-light">{{ product.prodName }}</h5>
                     <h6 class="text-light">{{ product.prodInfo }}</h6>
                     <p class="text-light">R{{ product.prodPrice }}</p>
+                    <a href="/single" type="button" class="btn btn-info">See now</a>
                 </div>
             </div>
         </div>
-    </div>
+    
 </template>
 
 <script>
 
-import SpinnerComponent from '@/components/SpinnerComponent.vue';
-import axios from 'axios'
 
+import { computed } from '@vue/runtime-core'
+import { useStore } from 'vuex';
 export default {
-    components: {
-        SpinnerComponent
+    setup() {
+        const store = useStore()
+        store.dispatch("getProducts")
+        const products = computed(() => store.state.products)
+
+        return {
+            products
+        }
+
     },
     data() {
         return {
-            isLoading: false,
-            products: null,
+            search: '',
         }
     },
-    methods: {
-        async getProducts() {
-            this.isLoading = true
+    computed: {
+        filteredProducts: function (arg) {
+            return this.products.filter((item) =>
+                item.category.toLowerCase() === arg.toLowerCase())
+        },
 
-            let res = await axios
-                .get('https://activ8-nodeeomp.onrender.com/products')
-                .catch(error => {
-                    console.log(error)
-                })
-                .finally(() => {
-                    this.isLoading = false
-                })
-            let { results } = await res.data;
-            this.products = results;
-
+        filtering() {
+            if (this.searching.trim().length > 0) {
+                return this.products.filter((name) => name.prodName.toLowerCase).includes(this.search.trim().toLowerCase())
+            }
+            return this.products
         }
     }
+
 };
 </script>
 
 <style scoped>
-
 .space {
     padding: 70px;
 }
-.dropbtn {
+
+.card {
+    width: 18rem;
+    padding: 0;
+    background-color: transparent;
+    transition: .5s ease;
+}
+
+.card:hover {
+    box-shadow: 0 0 0 10px #000000;
+    transition: .5s ease;
+}
+
+.drop-button {
     background-color: rgb(255, 200, 99);
     color: black;
     padding: 16px;
@@ -119,7 +132,7 @@ button {
     color: white;
 }
 
-.dropdown:hover .dropbtn {
+.dropdown:hover .drop-button {
     background-color: rgba(53, 52, 52, 0.9);
     color: white;
 }

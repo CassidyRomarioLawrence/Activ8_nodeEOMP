@@ -191,16 +191,30 @@
     bottom: 0; 
     background: rgb(0, 0, 0); 
     background: rgba(0, 0, 0, 0.5); 
+    backdrop-filter: blur(7px);
     color: #f1f1f1; 
     width: 100%; 
     padding: 20px;
     margin: 0;
-    height: auto;
+    height: 100%;
   }
   .home-text {
-    font-size: 30px;
-    font-family: 'Tilt Neon', cursive;
+    font-weight: 700;
+    text-align: center;
+    font-size: 40px;
+    font-family: Hack, sans-serif;
+    text-transform: uppercase;
+    background: linear-gradient(90deg, rgb(255, 200, 99), white);
+    letter-spacing: 5px;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    animation: shine 15s linear infinite;
+    position: relative;
   }
+  
   .learn {
     border: none;
     padding: 10px;
