@@ -3,16 +3,14 @@ import {
 } from 'vuex'
 import axios from 'axios'
 const active = "https://activ8-nodeeomp.onrender.com/"
-
 export default createStore({
   state: {
     users: null,
     user: null,
-    products: [],
+    products: null,
     product: null,
     spinner: true
   },
-
   mutations: {
     setUsers(state, values) {
       state.users = values
@@ -63,19 +61,16 @@ export default createStore({
         .then((res) => res.json())
         .then((json) => context.commit("setUser", json));
     },
-
     login: async (context, payload) => {
       const {
         email,
         userPass
       } = payload;
-
       const res = await fetch(
         `${active}/login?email=${email}&password=${userPass}`)
       const userData = await res.json();
       context.commit("setUser", userData[0])
     },
-
     async getUsers(context) {
       const res = await axios
         .get(`${active}users`);
@@ -89,41 +84,56 @@ export default createStore({
         context.commit('setMessage', err)
       }
     },
-
-    
-
-    deleteUser: async (context, id) => {
-      fetch(`${active}user/` + id, {
-        method: "DELETE",
-      }).then(() => context.dispatch("getUsers"))
+    async getUser(context) {
+      const res = await axios
+        .get(`${active}user/1`);
+      let {
+        results,
+        err
+      } = await res.data;
+      if (results) {
+        context.commit('setUsers', results)
+      } else {
+        context.commit('setMessage', err)
+      }
     },
-
-    createUser: async (context, product) => {
-      fetch(`${active}user/`, {
-          method: "POST",
-          body: JSON.stringify(product),
-          headers: {
-            "Content-type": "application/json; charset=UTF-8",
-          },
-        })
-        .then((response) => response.json())
-        .then(() => context.dispatch("getUsers"));
+    async createUser(context, id) {
+      const res = await axios
+      .post(`${active}user/` + id)
+      let {
+        results, err
+      } = await res.data;
+      if (results) {
+        context.commit('setUser', results)
+      }else {
+        context.commit('setMessage', err)
+      }
     },
-
-    updateUser: async (context, product) => {
-      fetch(`${active}user/` + product.id, {
-          method: "PUT",
-          body: JSON.stringify(product),
-          headers: {
-            "Content-type": "application/json; charset=UTF-8",
-          },
-        })
-        .then((response) => response.json())
-        .then(() => context.dispatch("getUsers"));
+    async updateUser(context, id) {
+      const res = await axios
+      .put(`${active}user/` + id)
+      let {
+        results, err
+      } = await res.data;
+      if (results) {
+        context.commit('setUser', results)
+      }else {
+        context.commit('setMessage', err)
+      }
     },
-
+    async deleteUser(context, id) {
+      const res = await axios
+      .delete(`${active}user/` + id)
+      let {
+        results, err
+      } = await res.data;
+      if (results) {
+        context.commit('setUser', results)
+      }else {
+        context.commit('setMessage', err)
+      }
+    },
     async getProducts(context) {
-
       this.spinner = true
       const res = await axios
         .get(`${active}products`)
@@ -140,11 +150,9 @@ export default createStore({
         context.commit('setMessage', err)
       }
     },
-
     async getProduct(context) {
       const res = await axios
-      .get(`${active}product/:id`)
-
+      .get(`${active}product/1`)
       let {
         results, err
       } = await res.data;
@@ -153,39 +161,44 @@ export default createStore({
       }else {
         context.commit('setMessage', err)
       }
-
     },
-
-
-    deleteProduct: async (context, id) => {
-      fetch(`${active}product/` + id, {
-        method: "DELETE",
-      }).then(() => context.dispatch("getProducts"))
+    async createProduct(context, id) {
+      const res = await axios
+      .post(`${active}product/` + id)
+      let {
+        results, err
+      } = await res.data;
+      if (results) {
+        context.commit('setProduct', results)
+      }else {
+        context.commit('setMessage', err)
+      }
     },
-
-    createProduct: async (context, product) => {
-      fetch(`${active}product/`, {
-          method: "POST",
-          body: JSON.stringify(product),
-          headers: {
-            "Content-type": "application/json; charset=UTF-8",
-          },
-        })
-        .then((response) => response.json())
-        .then(() => context.dispatch("getProducts"));
+    async updateProduct(context, id) {
+      const res = await axios
+      .put(`${active}product/` + id)
+      let {
+        results, err
+      } = await res.data;
+      if (results) {
+        context.commit('setProduct', results)
+      }else {
+        context.commit('setMessage', err)
+      }
     },
-
-    updateProduct: async (context, product) => {
-      fetch(`${active}product/` + product.id, {
-          method: "PUT",
-          body: JSON.stringify(product),
-          headers: {
-            "Content-type": "application/json; charset=UTF-8",
-          },
-        })
-        .then((response) => response.json())
-        .then(() => context.dispatch("getProducts"));
+    async deleteProduct(context, id) {
+      const res = await axios
+      .delete(`${active}product/` + id)
+      let {
+        results, err
+      } = await res.data;
+      if (results) {
+        context.commit('setProduct', results)
+      }else {
+        context.commit('setMessage', err)
+      }
     },
+  
   },
   modules: {}
 })
