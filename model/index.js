@@ -29,7 +29,7 @@ class User {
                                 email, userPass  
                             }
                         );
-                        res.cookie('LegitUser',
+                        res.cookie('Valid User',
                         jwToken, {
                             maxAge: 3600000,
                             httpOnly: true
