@@ -1,8 +1,13 @@
 # Activ8_nodeEOMP
 
+=======================================================
+
 For Admin Log In:
 
-Email : lecturer@gmail.com
-Password : marker01
+  Email : lecturer@gmail.com
 
-Thank You for using or application
+  Password : marker01
+
+=======================================================
+
+Thank You for using our application.
