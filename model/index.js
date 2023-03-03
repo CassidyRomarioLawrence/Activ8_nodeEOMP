@@ -7,13 +7,13 @@ const { createToken } = require('../middleware/AuthenticateUser');
 class User {
     login(req, res) {
         const {email, userPass} = req.body;
-        const strQry = 
+        const querySt = 
         `
         SELECT firstName, lastName, gender, email, userPass, userRole, userImage, DATE_FORMAT(joinDate, '%d-%m-%Y') AS user_joined
         FROM users
         WHERE email = '${email}';
         `;
-        dB.query(strQry, async (err, data)=>{
+        dB.query(querySt, async (err, data)=>{
             if(err) throw err;
             if((!data.length) || (data == null)) {
                 res.status(401).json({err: 
@@ -23,21 +23,21 @@ class User {
                     data[0].userPass, 
                     (uErr, uResult)=> {
                         if(uErr) throw uErr;
-                        const jwToken = 
+                        const jToken = 
                         createToken(
                             {
                                 email, userPass  
                             }
                         );
                         res.cookie('Valid User',
-                        jwToken, {
+                        jToken, {
                             maxAge: 3600000,
                             httpOnly: true
                         })
                         if(uResult) {
                             res.status(200).json({
                                 msg: 'Logged In',
-                                jwToken,
+                                jToken,
                                 result: data[0]
                             })
                         }else {
@@ -50,27 +50,27 @@ class User {
         })     
     }
     fetchUsers(req, res) {
-        const strQry = 
+        const querySt = 
         `
         SELECT userId, firstName, lastName, gender, phoneNumber, email, userRole, userImage, DATE_FORMAT(joinDate, '%d-%m-%Y') AS user_joined
         FROM users;
         `;
         
-        dB.query(strQry, (err, data)=>{
+        dB.query(querySt, (err, data)=>{
             if(err) throw err;
             else res.status(200).json( 
                 {results: data} );
         })
     }
     fetchUser(req, res) {
-        const strQry = 
+        const querySt = 
         `
         SELECT userId, firstName, lastName, gender, phoneNumber, email, userRole, userImage, DATE_FORMAT(joinDate, '%d-%m-%Y') AS user_joined
         FROM users
         WHERE userId = ?;
         `;
         
-        dB.query(strQry,[req.params.id], 
+        dB.query(querySt,[req.params.id], 
             (err, data)=>{
             if(err) throw err;
             else res.status(200).json( 
@@ -87,16 +87,16 @@ class User {
             userPass: info.userPass
         }
         
-        const strQry =
+        const querySt =
         `INSERT INTO users
         SET ?;`;
-        dB.query(strQry, [info], (err)=> {
+        dB.query(querySt, [info], (err)=> {
             if(err) {
                 res.status(401).json({err});
             }else {
                 
-                const jwToken = createToken(user);
-                res.cookie("LegitUser", jwToken, {
+                const jToken = createToken(user);
+                res.cookie("Valid User", jToken, {
                     maxAge: 3600000,
                     httpOnly: true
                 });
@@ -109,47 +109,47 @@ class User {
         if(data.userPass !== null || 
             data.userPass !== undefined)
             data.userPass = hashSync(data.userPass, 15);
-        const strQry = 
+        const querySt = 
         `
         UPDATE users
         SET ?
         WHERE userId = ?;
         `;
         
-        dB.query(strQry,[data, req.params.id], 
+        dB.query(querySt,[data, req.params.id], 
             (err)=>{
             if(err) throw err;
             res.status(200).json( {msg: 
-                "Successfully updated user."} );
+                "User successfully updated."} );
         })    
     }
     deleteUser(req, res) {
-        const strQry = 
+        const querySt = 
         `
         DELETE FROM users
         WHERE userId = ?;
         `;
         
-        dB.query(strQry,[req.params.id], 
+        dB.query(querySt,[req.params.id], 
             (err)=>{
             if(err) throw err;
             res.status(200).json( {msg: 
-                "Successfully deleted user."} );
+                "User was successfully deleted."} );
         })    
     }
 }
 
 class Product {
     fetchProducts(req, res) {
-        const strQry = `SELECT id, category, prodName, prodInfo, prodPrice, prodQuantity, prodImage
+        const querySt = `SELECT id, category, prodName, prodInfo, prodPrice, prodQuantity, prodImage
         FROM products;`;
-        dB.query(strQry, (err, results)=> {
+        dB.query(querySt, (err, results)=> {
             if(err) throw err;
             res.status(200).json({results: results})
         });
     }
     fetchProduct(req, res) {
-        const strQry = `SELECT id,category, prodName, prodInfo, prodPrice, prodQuantity, prodImage
+        const querySt = `SELECT id,category, prodName, prodInfo, prodPrice, prodQuantity, prodImage
         FROM products
         WHERE id = ?;`;
         dB.query(strQry, [req.params.id], (err, results)=> {
@@ -169,20 +169,20 @@ class Product {
                 if(err){
                     res.status(400).json({err: "Unable to create new product."});
                 }else {
-                    res.status(200).json({msg: "Product successfully added."});
+                    res.status(200).json({msg: "Successfully created new product."});
                 }
             }
         );    
 
     }
     updateProduct(req, res) {
-        const strQry = 
+        const querySt = 
         `
         UPDATE products
         SET ?
         WHERE id = ?
         `;
-        dB.query(strQry,[req.body, req.params.id],
+        dB.query(querySt,[req.body, req.params.id],
             (err)=> {
                 if(err){
                     res.status(400).json({err: "Could not update product."});
@@ -194,13 +194,13 @@ class Product {
 
     }
     deleteProduct(req, res) {
-        const strQry = 
+        const querySt = 
         `
         DELETE FROM products
         WHERE id = ?;
         `;
-        dB.query(strQry,[req.params.id], (err)=> {
-            if(err) res.status(400).json({err: "Product not found."});
+        dB.query(querySt,[req.params.id], (err)=> {
+            if(err) res.status(400).json({err: "Unable to find product."});
             res.status(200).json({msg: "Successfully deleted product."});
         })
     }

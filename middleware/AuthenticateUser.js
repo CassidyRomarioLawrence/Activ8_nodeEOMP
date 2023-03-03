@@ -17,10 +17,10 @@ function verifyAToken(req, res, next) {
     try{
         const token = req.cookies["Valid User"] !== null ? req.cookies["Valid User"] :
         "Please register" ;
-        const isValid = null;
+        const valid = null;
         if(token !== "Please register") {
-            isValid = verify(token, process.env.SECRET_KEY);
-            if(isValid) {
+            valid = verify(token, process.env.SECRET_KEY);
+            if(valid) {
                 req.authenticated = true;
                 next();
             }else {
