@@ -1,15 +1,15 @@
-import {
-  createStore
-} from 'vuex'
+import { createStore} from 'vuex'
 import axios from 'axios'
 const active = "https://activ8-nodeeomp.onrender.com/"
 export default createStore({
   state: {
     users: null,
-    user: {},
+    user: null,
     products: null,
     product: null,
-    spinner: true
+    spinner: true,
+    asc:true,
+    message: null
   },
   mutations: {
     setUsers(state, values) {
@@ -26,14 +26,26 @@ export default createStore({
     },
     setSpinner(state, spinner) {
       state.spinner = spinner
-    }
+    },
+    sortProductsByPrice: (state) => {
+      state.products.sort((a, b) => {
+        return a.prodPrice - b.prodPrice;
+      });
+      if (!state.asc) {
+        state.products.reverse();
+      }
+      state.asc = !state.asc
+    },
+    setFilteredProducts(state, { products, category }) {
+      state.filteredProducts = products.filter(product => product.category === category)
+    },
   },
   actions: {
-    async registerUser({commit}, userCredentials) {
+    async registerUser(payload) {
       try {
         const response = await axios
-        .post(`${active}register`, userCredentials)
-        commit('setUser', response.data)
+        .post(`${active}register`, payload)
+        payload('setUser', response.data)
         return response.data
       } catch (error) {
         console.log(error);

@@ -12,11 +12,14 @@
       </div>
     </section>
     <section id="all-products">
-  
-        <SpinnerComponent v-if="isLoading" />
-    <div v-else>
-      <ProductCard />
-    </div>
+      <div>
+        <button class="btn btn-info" @click="sortbyPrice">Sort by Price <i class="fa-solid fa-arrow-up"></i> <i class="fa-solid fa-arrow-down"></i></button>
+        <button class="btn btn-info" @click="sortbyCategory">Sort by Category</button>
+      </div>
+      <SpinnerComponent v-if="isLoading" />
+      <div v-else>
+        <ProductCard />
+      </div>
     </section>
     <FooterComponent />
   </body>
@@ -33,7 +36,7 @@ import SpinnerComponent from '@/components/SpinnerComponent.vue';
 
 
 export default {
-  components: { NavbarComponent, FooterComponent, ProductCard , SpinnerComponent},
+  components: { NavbarComponent, FooterComponent, ProductCard, SpinnerComponent },
 
   data() {
     return {
@@ -42,8 +45,16 @@ export default {
   },
   created() {
     setTimeout(() => {
-     this.isLoading = false; 
+      this.isLoading = false;
     }, 5000);
+  },
+  methods: {
+    sortbyPrice(){
+      this.$store.commit("sortProductsByPrice");
+    },
+    sortbyCategory(){
+      this.$store.commit("setFilteredProducts");
+    }
   }
 
 }
@@ -53,6 +64,7 @@ export default {
 #all-products {
   height: auto;
   background-image: linear-gradient(black, rgba(65, 65, 65, 0.7));
+  padding: 30px;
 }
 
 .shop-img {
@@ -98,5 +110,4 @@ export default {
   color: white;
   text-shadow: 2px 2px 4px #000000;
 }
-
 </style>
