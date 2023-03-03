@@ -29,6 +29,7 @@
                       <button type="submit" class="btn1 mt-3 mb-5">Login</button>
                     </div>
                   </div>
+                  <p>Forgot your password <ForgetPassword/></p>
                   <p>Don't have an account? <a href="/register">Register here</a></p>
                 </form>
               </center>
@@ -45,10 +46,11 @@
 import NavbarComponent from '@/components/NavbarComponent.vue';
 import FooterComponent from '@/components/FooterComponent.vue';
 import axios from 'axios'
+import ForgetPassword from '@/components/ForgetPassword.vue';
 
 export default {
   name: 'LoginView',
-  components: { NavbarComponent, FooterComponent },
+  components: { NavbarComponent, FooterComponent, ForgetPassword },
 
   data() {
     return {

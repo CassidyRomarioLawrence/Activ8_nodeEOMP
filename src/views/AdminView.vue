@@ -37,7 +37,7 @@
                 <td data-label="edit">
                   <UpdateUser />
                 </td>
-                <td data-label="delete"><i class="fa-solid fa-trash"></i></td>
+                <td data-label="delete"><button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button></td>
               </tr>
 
             </tbody>
@@ -69,7 +69,7 @@
                 <td data-label="Image"><img :src="product.prodImage" class="img-fluid"
                     style="height:12vh" alt=""></td>
                 <td data-label="edit"><UpdateProduct/></td>
-                <td data-label="delete"><i class="fa-solid fa-trash"></i></td>
+                <td data-label="delete"><button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button></td>
               </tr>
             </tbody>
           </table>

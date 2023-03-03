@@ -12,7 +12,7 @@
             <img src="https://i.postimg.cc/13vwVPb9/transparent.png" class="img-fluid" style="height:auto; width:auto;" alt="">
             <center>
             <h4>Create Account</h4>
-            <form @submit.prevent="register">
+            <form @submit.prevent="registerUser">
               <div class="form-row">
                 <div class="col-sm-6">
                   <input type="text" placeholder="Firstname" v-model="firstName" class="form-control my-3" required>
@@ -55,7 +55,7 @@
               </div>
               <div class="form-row">
                 <div class="col-sm-6">
-                  <button type="button" class="btn1 mt-3 mb-5">Login</button>
+                  <button type="button" class="btn1 mt-3 mb-5">Register</button>
                 </div>
               </div>
               <p>Already have an account? <a href="/login">Login here</a></p>
@@ -73,6 +73,7 @@
 
 import NavbarComponent from '@/components/NavbarComponent.vue';
 import FooterComponent from '@/components/FooterComponent.vue';
+import { mapActions } from 'vuex';
 
   export default {
     name: 'LoginView',
@@ -91,20 +92,38 @@ import FooterComponent from '@/components/FooterComponent.vue';
         joinDate: '',
       }
     },
-    computed: {
-      user(){
-        return this.$store.dispatch("register", {
-          firstName:this.firstName,
-          lastName:this.lastName,
-          phoneNumber:this.phoneNumber,
+    ...mapActions(['registerUser']),
+    async registerUser() {
+      try {
+        await this.registerUser({
+          firstName: this.firstName,
+          lastName: this.lastName,
+          phoneNumber: this.phoneNumber,
           email: this.email,
           userPass: this.userPass,
           gender: this.gender,
           userRole: this.userRole,
+          userImage: this.userImage,
           joinDate: this.joinDate
         })
+      } catch (error) {
+        console.log(error);
       }
     }
+    // computed: {
+    //   user(){
+    //     return this.$store.dispatch("register", {
+    //       firstName:this.firstName,
+    //       lastName:this.lastName,
+    //       phoneNumber:this.phoneNumber,
+    //       email: this.email,
+    //       userPass: this.userPass,
+    //       gender: this.gender,
+    //       userRole: this.userRole,
+    //       joinDate: this.joinDate
+    //     })
+    //   }
+    // }
     
   }
   </script>

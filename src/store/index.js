@@ -6,7 +6,7 @@ const active = "https://activ8-nodeeomp.onrender.com/"
 export default createStore({
   state: {
     users: null,
-    user: null,
+    user: {},
     products: null,
     product: null,
     spinner: true
@@ -29,38 +29,50 @@ export default createStore({
     }
   },
   actions: {
-    register: async (context, payload) => {
-      const {
-        firstName,
-        lastName,
-        phoneNumber,
-        email,
-        userPass,
-        gender,
-        userRole,
-        userImage,
-        joinDate
-      } = payload;
-      fetch(`${active}register`, {
-          method: "POST",
-          body: JSON.stringify({
-            firstName: firstName,
-            lastName: lastName,
-            phoneNumber: phoneNumber,
-            email: email,
-            userPass: userPass,
-            gender: gender,
-            userRole: userRole,
-            userImage: userImage,
-            joinDate: joinDate
-          }),
-          headers: {
-            "Content-type": "application/json; charset=UTF-8"
-          },
-        })
-        .then((res) => res.json())
-        .then((json) => context.commit("setUser", json));
+    async registerUser({commit}, userCredentials) {
+      try {
+        const response = await axios
+        .post(`${active}register`, userCredentials)
+        commit('setUser', response.data)
+        return response.data
+      } catch (error) {
+        console.log(error);
+        throw error
+      }
     },
+    // register: async (context, payload) => {
+    //   const {
+    //     firstName,
+    //     lastName,
+    //     phoneNumber,
+    //     email,
+    //     userPass,
+    //     gender,
+    //     userRole,
+    //     userImage,
+    //     joinDate
+    //   } = payload;
+    //   fetch(`${active}register`, {
+    //       method: "POST",
+    //       body: JSON.stringify({
+    //         firstName: firstName,
+    //         lastName: lastName,
+    //         phoneNumber: phoneNumber,
+    //         email: email,
+    //         userPass: userPass,
+    //         gender: gender,
+    //         userRole: userRole,
+    //         userImage: userImage,
+    //         joinDate: joinDate
+    //       }),
+    //       headers: {
+    //         "Content-type": "application/json; charset=UTF-8"
+    //       },
+    //     })
+    //     .then((res) => res.json())
+    //     .then((json) => context.commit("setUser", json));
+    // },
+
     login: async (context, payload) => {
       const {
         email,
@@ -71,6 +83,7 @@ export default createStore({
       const userData = await res.json();
       context.commit("setUser", userData[0])
     },
+
     async getUsers(context) {
       const res = await axios
         .get(`${active}users`);
@@ -84,6 +97,7 @@ export default createStore({
         context.commit('setMessage', err)
       }
     },
+
     async getUser(context) {
       const res = await axios
         .get(`${active}user/1`);
@@ -97,6 +111,7 @@ export default createStore({
         context.commit('setMessage', err)
       }
     },
+
     async createUser(context, id) {
       const res = await axios
       .post(`${active}user/` + id)
@@ -109,6 +124,7 @@ export default createStore({
         context.commit('setMessage', err)
       }
     },
+
     async updateUser(context, id) {
       const res = await axios
       .put(`${active}user/` + id)
@@ -121,6 +137,7 @@ export default createStore({
         context.commit('setMessage', err)
       }
     },
+
     async deleteUser(context, id) {
       const res = await axios
       .delete(`${active}user/` + id)
@@ -133,6 +150,7 @@ export default createStore({
         context.commit('setMessage', err)
       }
     },
+
     async getProducts(context) {
       this.spinner = true
       const res = await axios
@@ -150,6 +168,7 @@ export default createStore({
         context.commit('setMessage', err)
       }
     },
+
     async getProduct(context) {
       const res = await axios
       .get(`${active}product/1`)
@@ -162,6 +181,7 @@ export default createStore({
         context.commit('setMessage', err)
       }
     },
+    
     async createProduct(context, id) {
       const res = await axios
       .post(`${active}product/` + id)
@@ -174,6 +194,7 @@ export default createStore({
         context.commit('setMessage', err)
       }
     },
+
     async updateProduct(context, id) {
       const res = await axios
       .put(`${active}product/` + id)
