@@ -22,7 +22,7 @@ class User {
                 await compare(userPass, 
                     data[0].userPass, 
                     (uErr, uResult)=> {
-                        if(uErr) throw cErr;
+                        if(uErr) throw uErr;
                         const jwToken = 
                         createToken(
                             {
