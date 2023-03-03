@@ -1,6 +1,6 @@
 import { createStore} from 'vuex'
 import axios from 'axios'
-const active = "https://activ8-nodeeomp.onrender.com/"
+const active = "https://active8-eomp.onrender.com/"
 export default createStore({
   state: {
     users: null,
