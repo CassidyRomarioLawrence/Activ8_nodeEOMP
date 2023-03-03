@@ -1,19 +1,11 @@
 <template>
     <div class="space">
-        <div class="dropdown">
-            <button class="drop-button">SHOP BY</button>
-            <div class="dropdown-content">
-                <button @click.prevent="getProducts">All Products</button>
-                <a href="#">Men</a>
-                <a href="#">Women</a>
-                <a href="#">Accessories</a>
-            </div>
-        </div>
-        <input type="text" v-model="search" placeholder="Search for products" style="height:40px">
+        <button class="btn btn-info" @click="sortbyPrice">Sort by Price <i class="fa-solid fa-arrow-up"></i> <i class="fa-solid fa-arrow-down"></i></button>
+        <input type="text" v-model="searching" placeholder="Search for products" style="height:40px">
     </div>
 
         <div v-if="products" class="row" style="gap: 5rem; padding: 30px;justify-content:center">
-            <div class="card" v-for="product in products" :key="product">
+            <div class="card" v-for="product in Searching" :key="product">
                 <img :src="product.prodImage" class="img-fluid">
                 <div class="card-body">
                     <h4 class="text-light">{{ product.category }}</h4>
@@ -45,7 +37,7 @@ export default {
     },
     data() {
         return {
-            search: '',
+            searching: ""
         }
     },
     computed: {
@@ -54,13 +46,21 @@ export default {
                 item.category.toLowerCase() === arg.toLowerCase())
         },
 
-        filtering() {
+        Searching() {
             if (this.searching.trim().length > 0) {
-                return this.products.filter((name) => name.prodName.toLowerCase).includes(this.search.trim().toLowerCase())
+                return this.products.filter((input) => input.category.toLowerCase).includes(this.search.trim().toLowerCase())
             }
             return this.products
         }
+    },
+  methods: {
+    sortbyPrice(){
+      this.$store.commit("sortProductsByPrice");
+    },
+    sortbyCategory(){
+      this.$store.commit("setFilteredProducts");
     }
+  }
 
 };
 </script>

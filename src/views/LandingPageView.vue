@@ -58,8 +58,8 @@
                     <p class="title">Backend Developer / Co-Founder</p>
                     <p class="institute">Life Choices Academy</p>
                     <div style="font-size: 30px; gap:5rem;">
-                      <a href="#" target="_blank"><i class="fa-brands fa-github text-light" style="padding:10px;"></i></a>
-                      <a href="#" target="_blank"><i class="fa-brands fa-linkedin text-light" style="padding:10px;"></i></a>  
+                      <a href="https://github.com/CassidyRomarioLawrence" target="_blank"><i class="fa-brands fa-github text-light" style="padding:10px;"></i></a>
+                      <a href="https://www.linkedin.com/in/cassidy-romario-lawrence-b671b21b8/" target="_blank"><i class="fa-brands fa-linkedin text-light" style="padding:10px;"></i></a>  
                     </div>
                     <p><button>Get in touch <i class="fa-sharp fa-solid fa-hand-point-up"></i></button></p>
                   </div>
@@ -71,8 +71,8 @@
                   <p class="title">Frontend Developer / Co-Founder</p>
                   <p class="institute">Life Choices Academy</p>
                   <div style="font-size: 30px; gap:5rem; background">
-                    <a href="#" target="_blank"><i class="fa-brands fa-github text-light" style="padding:10px;"></i></a> 
-                    <a href="#" target="_blank"><i class="fa-brands fa-linkedin text-light" style="padding:10px;"></i></a>  
+                    <a href="https://github.com/MeezaanD?tab=repositories" target="_blank"><i class="fa-brands fa-github text-light" style="padding:10px;"></i></a> 
+                    <a href="https://www.linkedin.com/in/meezaan-davids-4a7aa8265/" target="_blank"><i class="fa-brands fa-linkedin text-light" style="padding:10px;"></i></a>  
                   </div>
                   <p><button>Get in touch <i class="fa-sharp fa-solid fa-hand-point-up"></i></button></p>
                 </div>

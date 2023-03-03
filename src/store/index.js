@@ -24,6 +24,9 @@ export default createStore({
     setProduct(state, value) {
       state.product = value
     },
+    setMessage(state, message) {
+      state.message = message
+    },
     setSpinner(state, spinner) {
       state.spinner = spinner
     },
@@ -41,59 +44,24 @@ export default createStore({
     },
   },
   actions: {
-    async registerUser(payload) {
-      try {
-        const response = await axios
-        .post(`${active}register`, payload)
-        payload('setUser', response.data)
-        return response.data
-      } catch (error) {
-        console.log(error);
-        throw error
+    async register(context, payload) {
+      let res = await axios.post(`${active}`, payload);
+      let {msg, err} = await res.data;
+      if(msg) {
+        context.commit('setMessage', msg);
+      }else {
+        context.commit('setMessage', err)
       }
     },
-    // register: async (context, payload) => {
-    //   const {
-    //     firstName,
-    //     lastName,
-    //     phoneNumber,
-    //     email,
-    //     userPass,
-    //     gender,
-    //     userRole,
-    //     userImage,
-    //     joinDate
-    //   } = payload;
-    //   fetch(`${active}register`, {
-    //       method: "POST",
-    //       body: JSON.stringify({
-    //         firstName: firstName,
-    //         lastName: lastName,
-    //         phoneNumber: phoneNumber,
-    //         email: email,
-    //         userPass: userPass,
-    //         gender: gender,
-    //         userRole: userRole,
-    //         userImage: userImage,
-    //         joinDate: joinDate
-    //       }),
-    //       headers: {
-    //         "Content-type": "application/json; charset=UTF-8"
-    //       },
-    //     })
-    //     .then((res) => res.json())
-    //     .then((json) => context.commit("setUser", json));
-    // },
 
-    login: async (context, payload) => {
-      const {
-        email,
-        userPass
-      } = payload;
-      const res = await fetch(
-        `${active}/login?email=${email}&password=${userPass}`)
-      const userData = await res.json();
-      context.commit("setUser", userData[0])
+    async login(context, payload) {
+      const res = await axios.post(`${active}login`, payload);
+      const {result, err} = await res.data;
+      if(result) {
+        context.commit ('setUser', result);
+      }else {
+        context.commit('setMessage', err);
+      }
     },
 
     async getUsers(context) {

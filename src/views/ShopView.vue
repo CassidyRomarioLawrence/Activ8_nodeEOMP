@@ -12,10 +12,6 @@
       </div>
     </section>
     <section id="all-products">
-      <div>
-        <button class="btn btn-info" @click="sortbyPrice">Sort by Price <i class="fa-solid fa-arrow-up"></i> <i class="fa-solid fa-arrow-down"></i></button>
-        <button class="btn btn-info" @click="sortbyCategory">Sort by Category</button>
-      </div>
       <SpinnerComponent v-if="isLoading" />
       <div v-else>
         <ProductCard />
@@ -47,14 +43,6 @@ export default {
     setTimeout(() => {
       this.isLoading = false;
     }, 5000);
-  },
-  methods: {
-    sortbyPrice(){
-      this.$store.commit("sortProductsByPrice");
-    },
-    sortbyCategory(){
-      this.$store.commit("setFilteredProducts");
-    }
   }
 
 }
@@ -109,5 +97,9 @@ export default {
   font-size: 40px;
   color: white;
   text-shadow: 2px 2px 4px #000000;
+}
+
+.buttons {
+  display: block;
 }
 </style>
