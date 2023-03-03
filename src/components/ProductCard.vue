@@ -1,7 +1,7 @@
 <template>
     <div class="space">
         <button class="btn btn-info" @click="sortbyPrice">Sort by Price <i class="fa-solid fa-arrow-up"></i> <i class="fa-solid fa-arrow-down"></i></button>
-        <input type="text" v-model="searching" placeholder="Search for products" style="height:40px">
+        <!-- <input type="text" v-model="searching" placeholder="Search for products" style="height:40px"> -->
     </div>
 
         <div v-if="products" class="row" style="gap: 5rem; padding: 30px;justify-content:center">
